@@ -45,9 +45,6 @@ view =
 
 renderHex =
     let
-        side =
-            0
-
         size =
             100
 
@@ -57,17 +54,14 @@ renderHex =
         y =
             100
     in
-    shapes []
-        [ path ( x + size * cos 0, y + size * sin 0 )
-            [ lineTo ( x + size * cos (0 * 2 * pi / 6), y + size * sin (0 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (1 * 2 * pi / 6), y + size * sin (1 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (2 * 2 * pi / 6), y + size * sin (2 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (3 * 2 * pi / 6), y + size * sin (3 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (4 * 2 * pi / 6), y + size * sin (4 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (5 * 2 * pi / 6), y + size * sin (5 * 2 * pi / 6) )
-            , lineTo ( x + size * cos (6 * 2 * pi / 6), y + size * sin (6 * 2 * pi / 6) )
-            ]
-        ]
+    List.range 0 6
+        |> List.map
+            (\side ->
+                lineTo ( x + size * cos (toFloat side * 2 * pi / 6), y + size * sin (toFloat side * 2 * pi / 6) )
+            )
+        |> path ( x + size * cos 0, y + size * sin 0 )
+        |> List.singleton
+        |> shapes []
 
 
 main =
